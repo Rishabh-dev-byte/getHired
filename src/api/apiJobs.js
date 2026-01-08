@@ -1,7 +1,9 @@
 import supabaseClient from "../utils/supabase.js"
 
+
+
 export async function getJobs(token,{location,company_id,searchQuery}){
-  const supabase = await supabaseClient(token);
+  const supabase =  supabaseClient(token);
   
 
   let query =   supabase.from("job").select("*,saved: saved_job(id), company: companies(name,logo_url)");
@@ -31,8 +33,9 @@ export async function getJobs(token,{location,company_id,searchQuery}){
   return data;
 }
 
+
 export async function saveJobs(token,{alreadySaved},saveData){
-  const supabase = await supabaseClient(token);
+  const supabase = supabaseClient(token);
     
     if(alreadySaved){
       const { data, error:deleteError } = await supabase
@@ -61,9 +64,9 @@ export async function saveJobs(token,{alreadySaved},saveData){
 }
 
 export async function getSinglejobs(token,{job_id}){
-  const supabase = await supabaseClient(token);
+  const supabase =  supabaseClient(token);
     
-         let query = supabase
+    let query = supabase
     .from("job")
     .select(
       "*, company: companies(name,logo_url), applications: applications(*)"
@@ -82,7 +85,7 @@ export async function getSinglejobs(token,{job_id}){
 }
 
 export async function updateHiringStatus(token,{job_id},isOpen){
-  const supabase = await supabaseClient(token);
+  const supabase =  supabaseClient(token);
     
     let query = supabase
     .from("job")

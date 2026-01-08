@@ -1,7 +1,7 @@
 import supabaseClient from "../utils/supabase.js"
 
-export async function getCompany(token){
-  const supabase = await supabaseClient(token);
+export async function getCompanies(token){
+  const supabase = supabaseClient(token);
   
 
   let query =  await supabase.from("companies").select("*");

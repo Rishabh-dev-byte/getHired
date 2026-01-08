@@ -1,14 +1,12 @@
-import React from 'react'
-import UseFetch from "../hooks/useEffect"
-import {getJobs} from "../api/apiJobs"
-import {useEffect,useState} from "react"
-import {useUser} from "@clerk/clerk-react"
-import { BarLoader } from 'react-spinners'
-import JobCard from "../components/job-card"
-import {Input} from "../components/ui/input"
-import {Button} from "../components/ui/button"
-import { getCompany } from '@/api/apiCompanies'
+import { useEffect, useState } from "react";
+import { useUser } from "@clerk/clerk-react";
 import { State } from "country-state-city";
+import { BarLoader } from "react-spinners";
+import UseFetch from "@/hooks/useEffect";
+
+import JobCard from "@/components/job-card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -18,66 +16,66 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import { getCompanies } from "@/api/apiCompanies";
+import { getJobs } from "@/api/apiJobs";
+
 const JobListing = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [location, setLocation] = useState("");
   const [company_id, setCompany_id] = useState("");
 
   const { isLoaded } = useUser();
-  
-   const {
+
+  const {
+    // loading: loadingCompanies,
+    data: companies,
+    fn: fnCompanies,
+  } = UseFetch(getCompanies);
+
+  const {
     loading: loadingJobs,
     data: jobs,
     fn: fnJobs,
-     } = UseFetch(getJobs, {
+  } = UseFetch(getJobs, {
     location,
     company_id,
     searchQuery,
   });
 
-    useEffect(() => {
+  useEffect(() => {
     if (isLoaded) {
-      fnJobs();
+      fnCompanies();
     }
-    
-  }, [isLoaded,location, company_id, searchQuery]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoaded]);
 
-  const {
-    
-    data: cndata,
-    fn: fncompany,
-     } = UseFetch(getCompany, {
-    location,
-    company_id,
-    searchQuery,
-  });
-   useEffect(() => {
-    
-      fncompany();
-    
-  });
-  const clearFilters = () =>{
-    setSearchQuery("")
-    setLocation("")
-    setCompany_id("")
+  useEffect(() => {
+    if (isLoaded) fnJobs();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoaded, location, company_id, searchQuery]);
 
-  }
-
-  if(!isLoaded){
-    return <BarLoader className="mb-4" width={"100%"} color="#36d7b7" />;
-  }
   const handleSearch = (e) => {
     e.preventDefault();
     let formData = new FormData(e.target);
 
     const query = formData.get("search-query");
-    console.log(query)
     if (query) setSearchQuery(query);
   };
+
+  const clearFilters = () => {
+    setSearchQuery("");
+    setCompany_id("");
+    setLocation("");
+  };
+
+  if (!isLoaded) {
+    return <BarLoader className="mb-4" width={"100%"} color="#36d7b7" />;
+  }
+
   return (
-    <div className=''>
-      <h1 className='font-extrabold flex justify-center text-center text-6xl sm:text-7xl p-10'  >
-        Latest Jobs 
+    <div className="">
+      <h1 className="gradient-title font-extrabold text-6xl sm:text-7xl text-center pb-8">
+        Latest Jobs
       </h1>
       <form
         onSubmit={handleSearch}
@@ -93,7 +91,8 @@ const JobListing = () => {
           Search
         </Button>
       </form>
-       <div className="flex flex-col sm:flex-row gap-2">
+
+      <div className="flex flex-col sm:flex-row gap-2">
         <Select value={location} onValueChange={(value) => setLocation(value)}>
           <SelectTrigger>
             <SelectValue placeholder="Filter by Location" />
@@ -120,7 +119,7 @@ const JobListing = () => {
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              {cndata?.map(({ name, id }) => {
+              {companies?.map(({ name, id }) => {
                 return (
                   <SelectItem key={name} value={id}>
                     {name}
@@ -139,25 +138,29 @@ const JobListing = () => {
         </Button>
       </div>
 
-        {loadingJobs === false && (
-        <div className="mt-6 grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-5 ">
-         {jobs?.length ? (
-            jobs.map((job) => (
-            
+      {loadingJobs && (
+        <BarLoader className="mt-4" width={"100%"} color="#36d7b7" />
+      )}
+
+      {loadingJobs === false && (
+        <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {jobs?.length ? (
+            jobs.map((job) => {
+              return (
                 <JobCard
                   key={job.id}
                   job={job}
                   savedInit={job?.saved?.length > 0}
                 />
-              
-            ))
+              );
+            })
           ) : (
-            <div>No Jobs Found </div>
+            <div>No Jobs Found 😢</div>
           )}
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default JobListing
+export default JobListing;

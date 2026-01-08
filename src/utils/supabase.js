@@ -1,21 +1,25 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+export const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseKey =
   import.meta.env.VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY
 
+// 🔒 Create ONE client only
+const supabase = createClient(supabaseUrl, supabaseKey);
 
+/**
+ * Reuse the same Supabase client
+ * Dynamically inject Authorization header
+ */
+const supabaseClient = (supabaseAccessToken) => {
+  if (supabaseAccessToken) {
+    supabase.rest.headers.set(
+      "Authorization",
+      `Bearer ${supabaseAccessToken}`
+    );
+  }
 
-const supabaseClient = async(supabaseAccessToken) => {
-    const supabase = createClient(supabaseUrl, supabaseKey, {
-        global: {
-            headers: {
-                Authorization: `Bearer ${supabaseAccessToken}`
-            }
-        }
-    });
-
-    return supabase;
+  return supabase;
 };
 
 export default supabaseClient;

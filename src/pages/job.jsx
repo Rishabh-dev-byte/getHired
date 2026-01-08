@@ -14,11 +14,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
+import { ApplyJobDrawer } from '@/components/apply-jobs.jsx';
 
 const JobPage = () => {
   const {id} = useParams();
-  const {user} = useUser();
+  const {user,isLoaded} = useUser();
   
   const {
     data: job,
@@ -27,7 +27,7 @@ const JobPage = () => {
   });
    useEffect(() => {
      fnJobs();  
-  });
+  },[isLoaded]);
 
    const {
     data: hiring,

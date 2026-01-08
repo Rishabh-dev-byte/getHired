@@ -37,7 +37,7 @@ const JobCard = ({
         })
     }
       useEffect(()=>{
-      (savedJobs != undefined) ?setSaved(savedJobs.length>0):setSaved(savedInit)
+      (savedJobs !== undefined) ?setSaved(savedJobs.length>0):setSaved(savedInit)
       },[savedJobs])
     return (
         <Card>
@@ -68,8 +68,9 @@ const JobCard = ({
             <Link to={`/job/${job.id}`}> 
             <Button variant="secondary" className="w-80">
                 More Details
-                {console.log("the job id is",job.id)}
-            </Button></Link>
+                
+            </Button>
+            </Link>
            
             {!isMyJob && <Button
              variant="outline"
