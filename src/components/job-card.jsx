@@ -37,7 +37,7 @@ const JobCard = ({
         })
     }
       useEffect(()=>{
-      (savedJobs !== undefined) ?setSaved(savedJobs.length>0):setSaved(savedInit)
+      (savedJobs !== undefined) ?setSaved(savedJobs?.length > 0):setSaved(savedInit)
       },[savedJobs])
     return (
         <Card>

@@ -36,11 +36,10 @@ const Header = () => {
         <Link to="/">
           <img src="/logo.svg" className="h-20" alt="Hirrd Logo" />
         </Link>
-        <div>
-            <ModeToggle/>
-        </div>
+        
 
         <div className="flex gap-8">
+           <ModeToggle/>
           <SignedOut>
             <Button variant="outline" onClick={() => setShowSignIn(true)}>
               Login

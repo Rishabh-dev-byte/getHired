@@ -15,6 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ApplyJobDrawer } from '@/components/apply-jobs.jsx';
+import { Applicationcard } from '@/components/applicationcard.jsx';
 
 const JobPage = () => {
   const {id} = useParams();
@@ -48,14 +49,14 @@ const JobPage = () => {
   return (
     <div  className='flex flex-col' >
       <div className='flex flex-col-reverse md:flex-row md:gap-7 justify-between items-center'>
-        <h1 className='text-4xl font-extrabold'>{job?.title}</h1>
+        <h1 className='text-4xl font-extrabold '>{job?.title}</h1>
          <img src={job?.company?.logo_url} className="h-12" alt={job?.title} />
       </div>
     <div className='flex justify-between'>
       <div className='gap-6 flex'>
          <MapPinIcon /> {job?.location}
       </div>
-      <div className='gap-6 flex' >
+      <div className='md:gap-4 flex flex-col md:flex-row' >
         <Briefcase /> {job?.applications?.length} Applicants
       </div>
       <div className='gap-3 flex'>
@@ -68,7 +69,7 @@ const JobPage = () => {
          {job?.recruiter_id === user?.id && (
         <Select onValueChange={handleStatusChange}>
           <SelectTrigger
-            className={`w-full ${job?.isOpen ? "bg-green-950" : "bg-red-950"}`}
+            className={`w-full mt-2 ${job?.isOpen ? "bg-green-950" : "bg-red-950"}`}
           >
             <SelectValue
               placeholder={
@@ -103,7 +104,16 @@ const JobPage = () => {
           applied={job?.applications?.find((ap) => ap.candidate_id === user.id)}
         />
       )}
-      
+      {job?.applications.length>0&&job?.recruiter_id === user?.id &&(
+        <div className="flex flex-col gap-2"> 
+          <h2 className="font-bold mb-4 text-xl ml-1 pl-5 mt-5">Applications</h2>
+          {job.applications.map((application)=>(
+            <Applicationcard application={application}/>
+          ))}
+         
+          
+        </div>
+      )}
     </div>
     
   )
