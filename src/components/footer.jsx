@@ -7,7 +7,7 @@ const Footer = () => {
     
     {/* Left side */}
     <div className="flex items-center gap-2">
-      <span>© 2025</span>
+      <span>© 2026</span>
       <span className="font-medium text-gray-300">
         getHired<span className="text-xs align-super ml-0.5">™</span>
       </span>

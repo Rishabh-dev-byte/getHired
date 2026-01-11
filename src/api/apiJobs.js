@@ -22,15 +22,12 @@ export async function getJobs(token,{location,company_id,searchQuery}){
    }
     
     const { data, error } = await query;
-
-
-   
-   if(error){
+    if(error){
     console.log("the error is",error)
     return null
     }
 
-  return data;
+    return data;
 }
 
 
@@ -102,3 +99,19 @@ export async function updateHiringStatus(token,{job_id},isOpen){
 
   return data; 
 }
+
+export async function addNewJob(token,_,jobData){
+  const supabase = supabaseClient(token);
+    
+    
+const { data, error:addjoberror } = await supabase
+       .from("jobs")
+       .insert([jobData])
+       .select()
+       
+       if(savejoberror){
+        console.log("the savejobError is",addjoberror)
+       }
+       return data
+       }
+

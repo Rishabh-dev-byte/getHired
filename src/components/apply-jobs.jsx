@@ -19,6 +19,7 @@ import * as z from "zod";
 import UseFetch from "@/hooks/useEffect";
 import { applyJobs } from "@/api/apiApplications";
 import { BarLoader } from "react-spinners";
+import { Navigate } from "react-router-dom";
 
 const schema = z.object({
   experience: z
@@ -71,7 +72,7 @@ export function ApplyJobDrawer({ user, job, fetchJob, applied = false }) {
       reset();
     });
   };
-
+ 
   return (
     <Drawer open={applied ? false : undefined}>
       <DrawerTrigger asChild>
