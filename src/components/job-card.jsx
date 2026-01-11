@@ -13,13 +13,12 @@ import UseFetch from "../hooks/useEffect";
 import { useUser } from "@clerk/clerk-react";
 import { useEffect, useState } from "react";
 
-
 const JobCard = ({
     job,
-    savedInit = false,
+    savedInit=false,
     onJobAction = () => {},
     isMyJob = false,
-}) => {
+     }) => {
      
     const[saved,setSaved] = useState(savedInit)
      const {user} = useUser()
@@ -35,10 +34,12 @@ const JobCard = ({
           user_id :user.id,
           job_id :job.id
         })
-    }
-      useEffect(()=>{
-      (savedJobs !== undefined) ?setSaved(savedJobs?.length > 0):setSaved(savedInit)
-      },[savedJobs])
+         onJobAction();
+      };
+     useEffect(() => {
+    if (savedJobs !== undefined) setSaved(savedJobs?.length > 0);
+      }, [savedJobs]);
+
     return (
         <Card>
          <CardHeader>

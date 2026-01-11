@@ -38,9 +38,7 @@ export function Applicationcard({application,isCandidate=false}) {
     
     fnstatus(status).then(()=>{
       fnstatus()
-    }
-    
-    )
+    })
   }
   return (
     <Card className="">

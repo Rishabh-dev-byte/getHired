@@ -21,11 +21,12 @@ import { Textarea } from "@/components/ui/textarea";
 import MDEditor from '@uiw/react-md-editor';
 import { Button } from '@/components/ui/button';
 import { addNewJob } from '@/api/apiJobs';
-import { i } from '@clerk/clerk-react/dist/useAuth-fq1pQd_y';
+
 import { Navigate, useNavigate } from 'react-router-dom';
+import Addcompanydrawer from '@/components/addcompanydrawer';
 const schema = z.object({
   title:z.string().min(1,{message:"title is required"}),
-  Description:z.string().min(1,{message:"description is required"}),
+  description:z.string().min(1,{message:"description is required"}),
   location:z.string().min(1,{message:"location is required"}),
   company_id:z.string().min(1,{message:"company_id is required"}),
   requirements:z.string().min(1,{message:"requirements is required"})
@@ -55,7 +56,7 @@ const PostJob = () => {
       },[isLoaded]);
 
       const {
-      loading:loading,
+      loading:newloading,
       fn: fnJobs,
       data:newcompanies,
       } = UseFetch(addNewJob);
@@ -65,15 +66,16 @@ const PostJob = () => {
           ...data,
           recruiter_id:user.id,
           isOpen:true
+        }).then(()=>{
+          navigate("/jobs");
         })
 
       }
 
-      useEffect(()=>{
-        if(data?.length>0) navigate("/jobs");
-      },[loading])
-       
-      if(user?.unsafeMetadata.role !== recruiter){
+      
+
+
+      if(user?.unsafeMetadata.role !== "recruiter"){
           return <Navigate to="/jobs"/>;
         }
   return (
@@ -88,10 +90,7 @@ const PostJob = () => {
             {errors.title && (<p className="text-red-500">{errors.title.message}</p>)}
             
             <Textarea placeholder="Job Description" {...register("description")} />
-            {errors.Description && (
-            <p className="text-red-500">{errors.description.message}</p>
-        )}
-     
+            
      <div className="flex gap-4 items-center">
           <Controller
             name="location"
@@ -138,7 +137,7 @@ const PostJob = () => {
               </Select>
             )}
           />
-          <AddCompanyDrawer fetchCompanies={fnCompanies} />
+          <Addcompanydrawer fetchCompanies={fnCompanies} />
         </div>
         {errors.location && (
           <p className="text-red-500">{errors.location.message}</p>
@@ -146,18 +145,23 @@ const PostJob = () => {
         {errors.company_id && (
           <p className="text-red-500">{errors.company_id.message}</p>
         )}
-        <Controller
-            name="requirements"
-            control={control}
-            render={({ field }) => (
-              <MDEditor value={field.value} onValueChange={field.onChange}/>)}
-           />
+       <Controller
+          name="requirements"
+           control={control}
+           render={({ field }) => (
+         <MDEditor
+         value={field.value}
+         onChange={field.onChange}
+          />
+  )}
+/>
+
             {errors.requirements && (
           <p className="text-red-500">{errors.requirements.message}</p>
         )}
 
         <Button type="submit" variant='blue' size='lg' className="mt-2">
-
+         Submit
         </Button>
         </form>
     </div> 

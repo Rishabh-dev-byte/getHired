@@ -23,7 +23,7 @@ const LandingPage = () => {
         <h1 className="flex flex-col items-center justify-center gradient-title font-extrabold text-4xl sm:text-6xl lg:text-8xl tracking-tighter py-4">
           Find Your Dream Job
           <span className="flex items-center gap-2 sm:gap-6">
-            and get
+             through
             <img
               src="/logo.svg"
               className="h-14 sm:h-24 lg:h-32"
@@ -68,7 +68,7 @@ const LandingPage = () => {
         </CarouselContent>
       </Carousel>
 
-      <img src="/banner.jpeg" className="w-full" />
+      <img src="/banner.png" className="w-full" />
 
       <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Card>

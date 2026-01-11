@@ -105,12 +105,26 @@ export async function addNewJob(token,_,jobData){
     
     
 const { data, error:addjoberror } = await supabase
-       .from("jobs")
+       .from("job")
        .insert([jobData])
        .select()
        
        if(savejoberror){
         console.log("the savejobError is",addjoberror)
+       }
+       return data
+       }
+
+export async function getSavedJobs(token){
+  const supabase = supabaseClient(token);
+    
+    
+const { data, error:getsavedjoberror } = await supabase
+       .from("saved_job")
+       .select("*,job:job(*,company:companies(name,logo_url))")
+       
+       if(getsavedjoberror){
+        console.log("the getsavedjoberror is",getsavedjoberror)
        }
        return data
        }
