@@ -129,7 +129,7 @@ const { data, error:addjoberror } = await supabase
        return data
        }
 
-      export async function getMyJobs(token, { recruiter_id }) {
+      export async function getMyJobs(token, _,{recruiter_id} ) {
        const supabase =  supabaseClient(token);
 
       const { data, error } = await supabase
@@ -142,17 +142,17 @@ const { data, error:addjoberror } = await supabase
       return null;
        }
 
-  return data;
-}
+       return data;
+          }
 
-export async function deleteJob(token, { job_id }) {
-  const supabase =  supabaseClient(token);
+      export async function deleteJob(token, { job_id }) {
+       const supabase =  supabaseClient(token);
 
-  const { data, error: deleteError } = await supabase
-    .from("jobs")
-    .delete()
-    .eq("id", job_id)
-    .select();
+      const { data, error: deleteError } = await supabase
+       .from("job")
+      .delete()
+      .eq("id", job_id)
+      .select();
 
   if (deleteError) {
     console.error("Error deleting job:", deleteError);

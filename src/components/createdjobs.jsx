@@ -6,38 +6,37 @@ import JobCard from "./job-card";
 import { useEffect } from "react";
 
 const CreatedJobs = () => {
-  const { user,isLoaded } = useUser();
+  const { user, isLoaded } = useUser(); // track loading state
 
   const {
     loading: loadingCreatedJobs,
     data: createdJobs,
     fn: fnCreatedJobs,
-  } = useFetch(getMyJobs, {
-    recruiter_id: user.id,
-  });
+  } = useFetch(getMyJobs);
 
   useEffect(() => {
-    fnCreatedJobs();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (isLoaded && user) { // ✅ wait until user is loaded
+      fnCreatedJobs({ recruiter_id: user.id });
+    }
+  }, [isLoaded, user]);
+
+  if (!isLoaded) return <div>Loading user...</div>; // optional loader
 
   return (
     <div>
       {loadingCreatedJobs ? (
-        <BarLoader className="mt-4" width={"100%"} color="#36d7b7" />
+        <BarLoader className="mt-4" width="100%" color="#36d7b7" />
       ) : (
         <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {createdJobs?.length ? (
-            createdJobs.map((job) => {
-              return (
-                <JobCard
-                  key={job.id}
-                  job={job}
-                  onJobAction={fnCreatedJobs}
-                  isMyJob
-                />
-              );
-            })
+            createdJobs.map((job) => (
+              <JobCard
+                key={job.id}
+                job={job}
+                onJobAction={() => fnCreatedJobs({ recruiter_id: user.id })}
+                isMyJob={true}
+              />
+            ))
           ) : (
             <div>No Jobs Found 😢</div>
           )}
@@ -46,5 +45,4 @@ const CreatedJobs = () => {
     </div>
   );
 };
-
-export default CreatedJobs;
+ export default CreatedJobs;

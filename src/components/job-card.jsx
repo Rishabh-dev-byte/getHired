@@ -38,10 +38,8 @@ const JobCard = ({
             onJobAction();
        };
 
-           
-            
-             const { fn: fnDeleteJob } = useFetch(deleteJob, {
-              job_id: job.id,
+        const { fn: fnDeleteJob } = useFetch(deleteJob, {
+         job_id: job.id,
               });
 
      const handleDeleteJob = async () => {
