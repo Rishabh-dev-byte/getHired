@@ -16,7 +16,7 @@ import { Label } from "./ui/label";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import UseFetch from "@/hooks/useEffect";
+import useFetch from "@/hooks/usefetch";
 import { applyJobs } from "@/api/apiApplications";
 import { BarLoader } from "react-spinners";
 import { Navigate } from "react-router-dom";
@@ -56,7 +56,7 @@ export function ApplyJobDrawer({ user, job, fetchJob, applied = false }) {
     loading: loadingApply,
     error: errorApply,
     fn: fnApply,
-  } = UseFetch(applyJobs);
+  } = useFetch(applyJobs);
 
   const onSubmit = (data) => {
     fnApply({

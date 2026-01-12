@@ -3,7 +3,7 @@ import {z} from "zod"
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from "@/components/ui/button"
-import UseFetch from "@/hooks/useEffect";
+import useFetch from "@/hooks/usefetch";
 import { useEffect } from 'react'
 
 import { Input } from "./ui/input";
@@ -42,7 +42,7 @@ const schema = z.object({
       loading:companyloading,
       fn: fnJobs,
       data:newcompanies,
-      } = UseFetch(addCompanies);
+      } = useFetch(addCompanies);
 
       const submit= async (data)=>{
         fnJobs({

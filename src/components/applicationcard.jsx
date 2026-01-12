@@ -19,7 +19,7 @@ import {
 import { Boxes, BriefcaseBusiness, Download, School } from "lucide-react";
 
 import {updateApplicationStatus} from "@/api/apiApplications"
-import UseFetch from "@/hooks/useEffect"
+import useFetch from "../hooks/usefetch"
 
 export function Applicationcard({application,isCandidate=false}) {
     const handleDownload=()=>{
@@ -30,8 +30,8 @@ export function Applicationcard({application,isCandidate=false}) {
     }
      const {
     data: hiring,
-    fn: fnstatus} = UseFetch(updateApplicationStatus, {
-        candidate_id : application?.candidate_id,
+    fn: fnstatus} = useFetch(updateApplicationStatus, {
+        job_id : application?.job_id,
   });
 
   const handleStatusChange = (status) =>{

@@ -2,7 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useUser } from '@clerk/clerk-react';
 import MDEditor from "@uiw/react-md-editor";
-import UseFetch from "../hooks/useEffect.js"
+import useFetch from "../hooks/usefetch.js"
 import { getSinglejobs } from '@/api/apiJobs';
 import { useEffect } from 'react';
 import { Briefcase, DoorClosed, DoorOpen, MapPinIcon } from "lucide-react";
@@ -23,7 +23,7 @@ const JobPage = () => {
   
   const {
     data: job,
-    fn: fnJobs} = UseFetch(getSinglejobs, {
+    fn: fnJobs} = useFetch(getSinglejobs, {
         job_id : id
   });
    useEffect(() => {
@@ -32,7 +32,7 @@ const JobPage = () => {
 
    const {
     data: hiring,
-    fn: fnstatus} = UseFetch(updateHiringStatus, {
+    fn: fnstatus} = useFetch(updateHiringStatus, {
         job_id : id
   });
 

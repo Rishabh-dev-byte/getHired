@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Input } from "@/components/ui/input";
 import { getCompanies } from "@/api/apiCompanies";
-import UseFetch from "@/hooks/useEffect";
+import useFetch from "@/hooks/usefetch";
 import { useEffect } from 'react';
 import { useUser } from "@clerk/clerk-react";
 import { State } from "country-state-city";
@@ -47,7 +47,7 @@ const PostJob = () => {
      const {
       data: companies,
       fn: fnCompanies,
-      } = UseFetch(getCompanies);
+      } = useFetch(getCompanies);
 
       useEffect(() => {
       if (isLoaded) {
@@ -59,7 +59,7 @@ const PostJob = () => {
       loading:newloading,
       fn: fnJobs,
       data:newcompanies,
-      } = UseFetch(addNewJob);
+      } = useFetch(addNewJob);
 
       const submit=(data)=>{
         fnJobs({

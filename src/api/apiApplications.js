@@ -43,19 +43,38 @@ console.log("jobData:", jobData);
   return data;
 }
 
-export async function updateApplicationStatus(token,{candidate_id},status){
+export async function updateApplicationStatus(token,{job_id},status){
   const supabase =  supabaseClient(token);
     
     let query = supabase
     .from("applications")
     .update({status})
-    .eq("candidate_id", candidate_id)
+    .eq("job_id", job_id)
     .single();
 
   const { data, error } = await query;
 
   if (error) {
     console.error("Error updateApplicationStatus Job:", error);
+    return null;
+  }
+
+  return data; 
+}
+
+export async function getApplications(token,{user_id}){
+  const supabase =  supabaseClient(token);
+    
+    let query = supabase
+    .from("applications")
+   .select("*,job:job(title,company:companies(name))")
+    .eq("candidate_id", user_id)
+    
+
+  const { data, error } = await query;
+
+  if (error) {
+    console.error("Error fetchingapplications", error);
     return null;
   }
 

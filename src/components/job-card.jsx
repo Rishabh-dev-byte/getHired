@@ -8,8 +8,8 @@ import {
   CardTitle,
 } from "./ui/card";
 import { Link } from "react-router-dom";
-import {saveJobs} from "../api/apiJobs"
-import UseFetch from "../hooks/useEffect";
+import {deleteJob,saveJobs} from "../api/apiJobs"
+import useFetch from "../hooks/usefetch";
 import { useUser } from "@clerk/clerk-react";
 import { useEffect, useState } from "react";
 
@@ -20,27 +20,35 @@ const JobCard = ({
     isMyJob = false,
      }) => {
      
-    const[saved,setSaved] = useState(savedInit)
-     const {user} = useUser()
-     const{fn:fnSavedJobs,
+        const[saved,setSaved] = useState(savedInit)
+         const {user} = useUser()
+          const{fn:fnSavedJobs,
            data:savedJobs,
-           loading:loadingSavedJob
-          }=UseFetch(saveJobs,{
-            alreadySaved:saved
+           loading: saving
+          }=useFetch(saveJobs,{
+            alreadySaved:saved,
           })
 
-    const handleSaveJob = async() =>{
-         await fnSavedJobs({
-          user_id :user.id,
-          job_id :job.id
-        })
-         onJobAction();
-      };
-     useEffect(() => {
-    if (savedJobs !== undefined) setSaved(savedJobs?.length > 0);
-      }, [savedJobs]);
+          const handleSaveJob = async () => {
+          await fnSavedJobs({
+           user_id: user.id,
+           job_id: job.id
+       });
+           setSaved(prev => !prev);
+            onJobAction();
+       };
 
-    return (
+           
+            
+             const { fn: fnDeleteJob } = useFetch(deleteJob, {
+              job_id: job.id,
+              });
+
+     const handleDeleteJob = async () => {
+       await fnDeleteJob();
+       onJobAction();
+           };
+        return (
         <Card>
          <CardHeader>
          <CardTitle>

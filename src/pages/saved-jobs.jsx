@@ -1,5 +1,5 @@
 import React from 'react'
-import UseFetch from "../hooks/useEffect.js"
+import useFetch from "../hooks/usefetch.js"
 import { getSavedJobs } from '@/api/apiJobs';
 import { useUser } from '@clerk/clerk-react';
 import { useEffect } from 'react';
@@ -10,7 +10,7 @@ const SavedJobs = () => {
       loading:companyloading,
       fn: fnJobs,
       data:savedjob,
-      } = UseFetch(getSavedJobs);
+      } = useFetch(getSavedJobs);
 
     useEffect(() => {
         if (isLoaded) {

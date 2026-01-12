@@ -1,7 +1,7 @@
 import {useSession} from "@clerk/clerk-react"
 import {useState}  from "react"
 
- function UseFetch(cb,options={}){
+ function useFetch(cb,options={}){
     const[loading,setLoading] = useState(true)
     const[data,setData] = useState(null)
     const[error,setError] = useState(null)
@@ -30,4 +30,4 @@ import {useState}  from "react"
     }
      return {data,fn,loading ,error};
 };
- export default UseFetch;
+ export default useFetch;
