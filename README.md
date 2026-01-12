@@ -1,20 +1,61 @@
-<<<<<<< HEAD
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+ 🚀 getHired
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**getHired** is a full-stack job portal application that connects recruiters and job seekers. Recruiters can create and manage job listings, while job seekers can explore opportunities and save jobs they are interested in.
 
-## React Compiler
+The project is built using **React**, **Clerk authentication**, **shadcn/ui**, and **Supabase (PostgreSQL)**, providing a secure, modern, and scalable platform.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+🌟 Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-=======
-# job-portal-website
->>>>>>> cecde981c5d2bd43da3dd43cda858e7ba0e5f6a7
+ 👤 Authentication & Authorization
+
+* Secure authentication with **Clerk**
+* Role-based access (Recruiter & Job Seeker)
+* Protected routes
+
+💼 Job Management
+
+* Recruiters can:
+
+  * Create job postings
+  * View jobs they have posted
+  * Delete their own job listings
+* Job seekers can:
+
+  * Browse available jobs
+  * View detailed job descriptions
+  * Save and unsave jobs
+
+ 🎨 User Interface
+
+* Built with **shadcn/ui**
+* Styled using **Tailwind CSS**
+* Fully responsive layout
+* Loading and empty states for better UX
+
+---
+
+🛠️ Tech Stack
+
+ Frontend
+
+* React
+* React Router
+* shadcn/ui
+* Tailwind CSS
+* Lucide Icons
+
+ Authentication
+
+* Clerk
+
+ Backend & Database
+
+* Supabase
+* PostgreSQL
+
+---
+
