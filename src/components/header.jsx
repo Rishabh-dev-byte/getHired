@@ -9,72 +9,56 @@ import {
 } from "@clerk/clerk-react";
 import { Button } from "./ui/button";
 import { BriefcaseBusiness, Heart, PenBox } from "lucide-react";
-import { ModeToggle } from "./mode-toggle.jsx";
+import {ModeToggle} from "./mode-toggle.jsx"
 
 const Header = () => {
   const [showSignIn, setShowSignIn] = useState(false);
+
   const [search, setSearch] = useSearchParams();
   const { user } = useUser();
 
-  // Open modal if ?sign-in=true is present
   useEffect(() => {
-    if (search.get("sign-in") === "true") {
+    if (search.get("sign-in")) {
       setShowSignIn(true);
-    } else {
-      setShowSignIn(false);
     }
   }, [search]);
 
-  // Lock scroll when modal is open
-  useEffect(() => {
-    document.body.style.overflow = showSignIn ? "hidden" : "auto";
-  }, [showSignIn]);
-
-  const closeModal = () => {
-    setShowSignIn(false);
-    search.delete("sign-in");
-    setSearch(search);
-  };
-
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
-      closeModal();
+      setShowSignIn(false);
+      setSearch({});
     }
   };
 
   return (
     <>
-      <nav className="py-4 flex justify-between items-center">
+     <nav className="py-4 px-6 md:px-10 lg:px-16 flex justify-between items-center">
         <Link to="/">
           <img src="/logo.svg" className="h-20" alt="Hirrd Logo" />
         </Link>
+        
 
-        <div className="flex items-center gap-6">
-          <ModeToggle />
-
+        <div className="flex gap-8">
+           <ModeToggle/>
           <SignedOut>
-            <Button
-              variant="outline"
-              onClick={() => setShowSignIn(true)}
-            >
+            <Button variant="outline" onClick={() => setShowSignIn(true)}>
               Login
             </Button>
           </SignedOut>
-
           <SignedIn>
             {user?.unsafeMetadata?.role === "recruiter" && (
               <Link to="/post-job">
-                <Button variant="destructive" className="rounded-full">
-                  <PenBox size={18} className="mr-2" />
+                <Button variant="destructive" className="rounded-full ">
+                  <PenBox size={20} className="mr-2" />
                   Post a Job
                 </Button>
               </Link>
             )}
-
-            <UserButton
+            <UserButton 
               appearance={{
                 elements: {
-                  avatarBox: "w-10 h-10",
+                  avatarBox: "w-10 h-10 ",
+                  
                 },
               }}
             >
@@ -96,18 +80,15 @@ const Header = () => {
         </div>
       </nav>
 
-      {/* Sign In Modal */}
       {showSignIn && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
+          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
           onClick={handleOverlayClick}
         >
-          <div className="bg-white dark:bg-gray-900 p-4 rounded-xl shadow-lg">
-            <SignIn
-              signUpForceRedirectUrl="/onboarding"
-              fallbackRedirectUrl="/onboarding"
-            />
-          </div>
+          <SignIn
+            signUpForceRedirectUrl="/onboarding"
+            fallbackRedirectUrl="/onboarding"
+          />
         </div>
       )}
     </>

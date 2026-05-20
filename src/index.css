@@ -8,7 +8,7 @@
   }
 }
 
-/* Subtle grid background – shadcn compatible */
+
 .bg-grid {
   background-color: var(--background);
   background-image: linear-gradient(
