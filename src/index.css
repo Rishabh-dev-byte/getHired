@@ -1,6 +1,38 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+/* Subtle grid background – shadcn compatible */
+.bg-grid {
+  background-color: var(--background);
+  background-image: linear-gradient(
+      to right,
+      oklch(from var(--foreground) l c h / 0.06) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      oklch(from var(--foreground) l c h / 0.06) 1px,
+      transparent 1px
+    );
+  background-size: 55px 55px;
+}
+.wmde-markdown {
+  background: transparent !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+.wmde-markdown ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -118,4 +150,3 @@
     @apply bg-background text-foreground;
   }
 }
-
