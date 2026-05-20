@@ -1,29 +1,29 @@
-import React from 'react'
-import useFetch from "../hooks/usefetch.js"
+import React from "react";
+import useFetch from "../hooks/usefetch.js";
 import { BarLoader } from "react-spinners";
-import { getSavedJobs } from '@/api/apiJobs';
-import { useUser } from '@clerk/clerk-react';
-import { useEffect } from 'react';
+import { getSavedJobs } from "@/api/apiJobs";
+import { useUser } from "@clerk/clerk-react";
+import { useEffect } from "react";
 import JobCard from "@/components/job-card";
 const SavedJobs = () => {
-  const {isLoaded} = useUser()
-   const {
-      loading:companyloading,
-      fn: fnJobs,
-      data:savedjob,
-      } = useFetch(getSavedJobs);
+  const { isLoaded } = useUser();
+  const {
+    loading: companyloading,
+    fn: fnJobs,
+    data: savedjob,
+  } = useFetch(getSavedJobs);
 
-    useEffect(() => {
-        if (isLoaded) {
-          fnJobs();
-        }
-        }, [isLoaded]);
+  useEffect(() => {
+    if (isLoaded) {
+      fnJobs();
+    }
+  }, [isLoaded]);
 
-         if (!isLoaded) {
+  if (!isLoaded) {
     return <BarLoader className="mb-4" width={"100%"} color="#36d7b7" />;
   }
   return (
-    <div> 
+    <div>
       <h1 className="gradient-title font-extrabold text-6xl sm:text-7xl text-center pb-8">
         Saved Jobs
       </h1>
@@ -45,9 +45,7 @@ const SavedJobs = () => {
           )}
         </div>
       )}
-      </div>
-    
-    )
-
-  }
-export default SavedJobs
+    </div>
+  );
+};
+export default SavedJobs;

@@ -26,11 +26,7 @@ const JobListing = () => {
 
   const { isLoaded } = useUser();
 
-  const {
-    
-    data: companies,
-    fn: fnCompanies,
-  } = useFetch(getCompanies);
+  const { data: companies, fn: fnCompanies } = useFetch(getCompanies);
 
   const {
     loading: loadingJobs,
@@ -46,12 +42,10 @@ const JobListing = () => {
     if (isLoaded) {
       fnCompanies();
     }
-    
   }, [isLoaded]);
 
   useEffect(() => {
     if (isLoaded) fnJobs();
-    
   }, [isLoaded, location, company_id, searchQuery]);
 
   const handleSearch = (e) => {

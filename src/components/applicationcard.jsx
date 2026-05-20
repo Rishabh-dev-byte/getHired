@@ -37,7 +37,6 @@ export function Applicationcard({ application, isCandidate = false }) {
 
   return (
     <Card className="w-full max-w-2xl mx-auto shadow-md hover:shadow-xl transition-all duration-300 rounded-2xl border border-gray-200 dark:border-gray-800">
-
       {/* Header */}
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle className="text-lg font-semibold">
@@ -56,7 +55,6 @@ export function Applicationcard({ application, isCandidate = false }) {
       {/* Content */}
       <CardContent className="space-y-4 text-sm">
         <div className="flex flex-col md:flex-row md:justify-between gap-4">
-
           <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
             <BriefcaseBusiness size={16} />
             <span>{application?.experience} years experience</span>
@@ -71,7 +69,6 @@ export function Applicationcard({ application, isCandidate = false }) {
             <Boxes size={16} />
             <span>{application?.skills}</span>
           </div>
-
         </div>
       </CardContent>
 
@@ -83,8 +80,7 @@ export function Applicationcard({ application, isCandidate = false }) {
 
         {isCandidate ? (
           <span className="capitalize font-semibold text-sm">
-            Status:{" "}
-            <span className="text-blue-500">{application.status}</span>
+            Status: <span className="text-blue-500">{application.status}</span>
           </span>
         ) : (
           <Select

@@ -19,7 +19,6 @@ import { Link } from "react-router-dom";
 const LandingPage = () => {
   return (
     <main className="flex flex-col items-center gap-10 sm:gap-16 py-8 sm:py-16 px-4 max-w-7xl mx-auto">
-
       {/* HERO SECTION */}
       <section className="text-center">
         <h1 className="flex flex-col items-center justify-center gradient-title font-extrabold text-3xl sm:text-5xl lg:text-7xl tracking-tight py-4">
@@ -115,7 +114,6 @@ const LandingPage = () => {
           </AccordionItem>
         ))}
       </Accordion>
-
     </main>
   );
 };
