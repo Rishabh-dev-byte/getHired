@@ -1,18 +1,21 @@
 import Header from "@/components/header";
 import { Outlet } from "react-router-dom";
-import Footer from "../components/footer"
+import Footer from "../components/footer";
 
 const AppLayout = () => {
   return (
-    <div>
-      <div className="grid-background justify-center align-center p-30 "></div> 
+    <div className="min-h-screen flex flex-col">
+      
+      {/* Background */}
+      <div className="grid-background flex justify-center items-center p-32"></div>
+
       <Header />
-      <main >
-       <Outlet />
+
+      <main className="flex-grow">
+        <Outlet />
       </main>
-      <div className="mt-8">
-        <Footer/>
-        </div>
+
+      <Footer />
       
     </div>
   );
