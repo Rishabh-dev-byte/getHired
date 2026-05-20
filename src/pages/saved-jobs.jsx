@@ -1,5 +1,6 @@
 import React from 'react'
 import useFetch from "../hooks/usefetch.js"
+import { BarLoader } from "react-spinners";
 import { getSavedJobs } from '@/api/apiJobs';
 import { useUser } from '@clerk/clerk-react';
 import { useEffect } from 'react';
